@@ -26,7 +26,7 @@ Um sistema web simples e intuitivo para upload, exibição e download de imagens
 
 2. **Coloque o projeto na pasta `htdocs` do XAMPP:**
    ```
-   C:\xampp\htdocs\download_imgs
+   C:\xampp\htdocs\imageshare
    ```
 
 3. **Crie o banco de dados MySQL:**
@@ -56,7 +56,7 @@ Um sistema web simples e intuitivo para upload, exibição e download de imagens
 
 6. **Acesse o sistema pelo navegador:**
    ```
-   http://localhost/download_imgs
+   http://localhost/imageshare
    ```
 
 ## Como usar
