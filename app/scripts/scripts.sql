@@ -16,4 +16,4 @@ create table usuarios (
     data_envio DATETIME DEFAULT CURRENT_TIMESTAMP,
     img_perfil_id INT, -- chave estrangeira
     FOREIGN KEY (img_perfil_id) REFERENCES imagens(id)
-)
+);
