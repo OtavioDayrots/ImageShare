@@ -61,27 +61,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$file = $_FILES['foto'];
-
-echo "<pre>";
-print_r($file);
-echo "</pre>";
-
-
 ?>
 
 <?php require_once __DIR__ . '/componetes/head.php'; ?>
 
 <body>
-    <?php if ($salvou): ?>
-        <p>
-            Arquivo enviado com sucesso em <?= $caminhoDaImagem ?>.
-            <a href="<?= $caminhoDaImagem ?>">Ver imagem</a>
-            <a href="index.php">Voltar</a>
-        </p>
-    <?php else: ?>
-        <p>Erro ao enviar o arquivo.</p>
-    <?php endif; ?>
+    <div class="upload-container">
+        <?php if (isset($salvou) && $salvou): ?>
+            <div class="upload-message upload-success">
+                <h2>Upload Concluído!</h2>
+                <p>Arquivo enviado com sucesso.</p>
+                <?php if (file_exists($caminhoDaImagem)): ?>
+                    <img src="<?= $caminhoDaImagem ?>" alt="Imagem enviada" class="upload-preview">
+                <?php endif; ?>
+            </div>
+            <div class="upload-links">
+                <a href="<?= $caminhoDaImagem ?>" class="upload-link" target="_blank">Ver imagem</a>
+                <a href="index.php" class="upload-link secondary">Voltar para início</a>
+            </div>
+        <?php else: ?>
+            <div class="upload-message upload-error">
+                <h2>Erro no Upload</h2>
+                <p>Não foi possível enviar o arquivo. Por favor, tente novamente.</p>
+            </div>
+            <div class="upload-links">
+                <a href="index.php" class="upload-link secondary">Voltar para início</a>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
 
 </html>

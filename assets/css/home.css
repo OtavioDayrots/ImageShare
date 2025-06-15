@@ -1,54 +1,184 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --background-color: #f5f6fa;
+    --card-background: #ffffff;
+    --text-color: #2c3e50;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
 body {
-    background-color: #b7a8a8;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+nav a:hover {
+    color: var(--secondary-color);
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 .container-upload {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.container-upload h1 {
+    margin-bottom: 1.5rem;
+}
+
+.container-upload form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 20vh;
+    gap: 1rem;
+}
+
+.container-upload label {
+    font-weight: 500;
+}
+
+.container-upload input[type="file"] {
+    background: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
 }
 
 .container-fotos {
-    background-color: #f0f0f0;
+    background-color: var(--card-background);
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    margin: 0 auto;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.container-fotos h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
 }
 
 .fotos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
-    padding: 16px 0;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
 }
 
 .foto {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    padding: 12px;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px var(--shadow-color);
+    padding: 1rem;
     text-align: center;
+    transition: var(--transition);
+}
+
+.foto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.foto a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .card-foto {
-    max-width: 100%;
-    max-height: 300px;
-    border-radius: 4px;
-    margin-bottom: 8px;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: calc(var(--border-radius) - 4px);
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.card-foto:hover {
+    transform: scale(1.02);
+}
+
+figcaption {
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+figcaption small {
+    color: #666;
+    font-size: 0.8rem;
 }
 
 .btn {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: 1px solid #000000;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: none;
     cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+
+    .container-fotos {
+        padding: 1rem;
+    }
+
+    .fotos {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .card-foto {
+        height: 200px;
+    }
 }

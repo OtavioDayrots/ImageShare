@@ -18,20 +18,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php require_once __DIR__ . '/componetes/head.php'; ?>  
 
 <body>
-    <form action="" method="POST">
-        <div class="input_user">
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" required>
-        </div>
-        <div class="input_user">
-            <label for="email">email:</label>
-            <input type="text" name="email" required>
-        </div>
-        <!-- <div class="input_user">
-            <label for="img_perfil">Foto de Perfil:</label>
-            <input type="file" name="img_perfil" accept="image/*">
-        </div> -->
-        <button type="submit" class="btn">Enviar</button>
-    </form>
+    <div class="form-cadastro-container">
+        <h1 class="form-cadastro-title">Cadastro de Usuário</h1>
+        <form action="" method="POST">
+            <div class="form-cadastro-group">
+                <label class="form-cadastro-label" for="nome">Nome:</label>
+                <input class="form-cadastro-input" type="text" name="nome" required placeholder="Digite seu nome">
+            </div>
+            <div class="form-cadastro-group">
+                <label class="form-cadastro-label" for="email">Email:</label>
+                <input class="form-cadastro-input" type="text" name="email" required placeholder="Digite seu email">
+            </div>
+            <button type="submit" class="form-cadastro-button">Cadastrar</button>
+        </form>
+    </div>
 </body>
 </html>
