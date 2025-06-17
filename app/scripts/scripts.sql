@@ -17,3 +17,13 @@ create table usuarios (
     img_perfil_id INT, -- chave estrangeira
     FOREIGN KEY (img_perfil_id) REFERENCES imagens(id)
 );
+
+create table galeria (
+	imagem_id int not null,
+    usuario_id int not null,
+    
+    constraint FK_GALERIA_IMAGEM foreign key (imagem_id) references imagens(id),
+    constraint FK_GALERIA_USUARIOS foreign key (usuario_id) references usuarios(id),
+    
+    constraint PK_GALERIA_ID primary key (imagem_id, usuario_id)
+);

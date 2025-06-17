@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 require_once __DIR__ . '/../database/DataBase.php';
 
 class BaseModel
@@ -9,6 +11,6 @@ class BaseModel
 
     function __construct()
     {
-        $this->pdo = Database::conectar();
+        $this->pdo = \App\Database\Database::conectar();
     }
 }

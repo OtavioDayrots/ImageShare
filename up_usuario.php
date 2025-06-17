@@ -1,18 +1,35 @@
 <?php 
+require_once __DIR__ ."/app/service/imagesUploadService.php";
 require_once __DIR__ . "/app/model/UsuariosModel.php";
+
+use App\Service\ImagesUploadService;
+use App\Model\UsuariosModel;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['nome']) && isset($_POST['email'])) {
+
+        // faz upload da imagem de perfil se existir
+        $imagemSalva = null;
+        if (!empty($_FILES['foto']['tmp_name'])) {
+            $uploadService = new ImagesUploadService($_FILES['foto']);
+            $imagemSalva = $uploadService->upload();
+        }
+
         $usuario = [
             'nome' => $_POST['nome'],
             'email' => $_POST['email'],
-            'img_perfil_id' => null
+            'img_perfil_id' => $imagemSalva['id'] ?? null
         ];
 
         $usuarioModel = new UsuariosModel();
         $usuarioModel->salvar($usuario);
+
+        // Redireciona para a página inicial após o cadastro
+        header('Location: index.php');
+        exit;
     }
 }
+
 ?>
 
 <?php require_once __DIR__ . '/componetes/head.php'; ?>  
@@ -20,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="form-cadastro-container">
         <h1 class="form-cadastro-title">Cadastro de Usuário</h1>
-        <form action="" method="POST">
+        <form action="up_usuario.php" method="POST" enctype="multipart/form-data">
             <div class="form-cadastro-group">
                 <label class="form-cadastro-label" for="nome">Nome:</label>
                 <input class="form-cadastro-input" type="text" name="nome" required placeholder="Digite seu nome">
@@ -29,6 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label class="form-cadastro-label" for="email">Email:</label>
                 <input class="form-cadastro-input" type="text" name="email" required placeholder="Digite seu email">
             </div>
+            <div class="form-cadastro-group">
+                <label for="foto">Foto</label>
+                <input type="file" name="foto" id="upload" accept="image/*">
+            </div>    
             <button type="submit" class="form-cadastro-button">Cadastrar</button>
         </form>
     </div>

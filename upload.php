@@ -1,62 +1,21 @@
 <?php
 
-require_once __DIR__ . "/app/model/ImagensModel.php";
+require_once __DIR__ . '/app/service/imagesUploadService.php';
+
+use App\Service\ImagesUploadService;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['foto'])) {
         $imagem = $_FILES['foto'];
 
-        // tratamento para tipo de arquivo apenas imagens
-        $mimeTypesPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
-        $extensoesPermitidas = ['jpg', 'png', 'gif'];
-
-        if (!in_array($imagem['type'], $mimeTypesPermitidos)) {
-            echo "Tipo de arquivo não permitido.";
-            exit;
-        }
-
-        // parse da extensão do arquivo e verifica se é permitida
-        $extensaoImagem = strtolower(pathinfo(
-            $imagem['name'],
-            PATHINFO_EXTENSION
-        ));
-
-        if (!in_array($extensaoImagem, $extensoesPermitidas)) {
-            echo "extensão de arquivo não permitida.";
-            exit;
-        }
-
-        // validação do tamanho da imagem
-        $tamanhoMaximo = 16 * 1024 * 1024; // 16mb
-        if ($imagem['size'] > $tamanhoMaximo) {
-            echo "tamanho da imagem muito grande.";
-            exit;
-        }
-
-        // tratamento para tipo de arquivo apenas imagens
-
-        $diretorioDestino = "assets/uploads/";
-
-        if (!is_dir($diretorioDestino)) {
-            mkdir($diretorioDestino, 0777, true);
-        }
-
-        // tratamento para criar nome unico
-        $nomeUnico = uniqid() . "_" . $imagem['name'];
-        $caminhoDaImagem = $diretorioDestino . $nomeUnico;
-
-        $salvou = move_uploaded_file(
-            from: $imagem['tmp_name'],
-            to: $caminhoDaImagem
-        );
-
-        if ($salvou) {
-            $imagensModel = new ImagensModel();
-            $imagensModel->salvar([
-                'nome' => $nomeUnico,
-                'nome_original' => $imagem['name'],
-                'caminho' => $caminhoDaImagem
-            ]);
+        try {
+            $uploadService = new ImagesUploadService($imagem);
+            $resultado = $uploadService->upload();
+            $salvou = $resultado['salvou'];
+            $caminhoDaImagem = $resultado['caminho'];
+        } catch (\Exception $e) {
+            $salvou = false;
+            $erro = $e->getMessage();
         }
     }
 }
@@ -82,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php else: ?>
             <div class="upload-message upload-error">
                 <h2>Erro no Upload</h2>
-                <p>Não foi possível enviar o arquivo. Por favor, tente novamente.</p>
+                <p><?= isset($erro) ? $erro : 'Não foi possível enviar o arquivo. Por favor, tente novamente.' ?></p>
             </div>
             <div class="upload-links">
                 <a href="index.php" class="upload-link secondary">Voltar para início</a>

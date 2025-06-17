@@ -1,5 +1,8 @@
 <?php
-class DataBase {
+
+namespace App\Database;
+
+class Database {
 
     public static function conectar () {
         $host = 'localhost';
@@ -10,6 +13,6 @@ class DataBase {
 
         $conectionUrl = "mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4";
 
-        return new PDO($conectionUrl, $username, $password);
+        return new \PDO($conectionUrl, $username, $password);
     }
 }

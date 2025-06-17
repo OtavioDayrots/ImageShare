@@ -1,4 +1,9 @@
-<?php require_once __DIR__ ."/app/model/ImagensModel.php";?>
+<?php 
+require_once __DIR__ ."/app/model/ImagensModel.php";
+
+use App\Model\ImagensModel;
+
+?>
 
 <?php require_once __DIR__ . '/componetes/head.php'; ?>  
 
