@@ -1,18 +1,26 @@
 <?php
 
+require_once __DIR__ . '/app/model/GaleriaModel.php';
 require_once __DIR__ . '/app/service/imagesUploadService.php';
 
 use App\Service\ImagesUploadService;
+use App\Model\GaleriaModel;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_FILES['foto'])) {
+    if (isset($_FILES['foto']) && isset($_POST['usuarioId'])) {
         $imagem = $_FILES['foto'];
+        $usuarioId = $_POST['usuarioId'];
 
         try {
             $uploadService = new ImagesUploadService($imagem);
             $resultado = $uploadService->upload();
+
             $salvou = $resultado['salvou'];
             $caminhoDaImagem = $resultado['caminho'];
+
+            $galeriaModel = new GaleriaModel();
+            $galeriaModel->salvar($resultado['id'], $usuarioId);
+
         } catch (\Exception $e) {
             $salvou = false;
             $erro = $e->getMessage();

@@ -23,10 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $usuarioModel = new UsuariosModel();
         $usuarioModel->salvar($usuario);
-
-        // Redireciona para a página inicial após o cadastro
-        header('Location: index.php');
-        exit;
     }
 }
 
@@ -37,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="form-cadastro-container">
         <h1 class="form-cadastro-title">Cadastro de Usuário</h1>
-        <form action="up_usuario.php" method="POST" enctype="multipart/form-data">
+        <form action="upUsuario.php" method="POST" enctype="multipart/form-data">
             <div class="form-cadastro-group">
                 <label class="form-cadastro-label" for="nome">Nome:</label>
                 <input class="form-cadastro-input" type="text" name="nome" required placeholder="Digite seu nome">
@@ -50,7 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="foto">Foto</label>
                 <input type="file" name="foto" id="upload" accept="image/*">
             </div>    
-            <button type="submit" class="form-cadastro-button">Cadastrar</button>
+            <div class="upload-links">
+                <button type="submit" class="btn">Cadastrar</button>
+                <a href="index.php" class="upload-link secondary">Voltar para início</a>
+            </div>
         </form>
     </div>
 </body>

@@ -4,6 +4,8 @@ namespace App\Service;
 
 require_once __DIR__ . "/../model/ImagensModel.php";
 
+use App\Model\imagensModel;
+
 class ImagesUploadService
 {
     private $imagem;
@@ -56,7 +58,7 @@ class ImagesUploadService
             throw new \Exception("Erro ao salvar a imagem.");
         }
 
-        $imagensModel = new \App\Model\ImagensModel();
+        $imagensModel = new ImagensModel();
         $imagemSalva = $imagensModel->salvar([
             'nome' => $nomeUnico,
             'nome_original' => $this->imagem['name'],

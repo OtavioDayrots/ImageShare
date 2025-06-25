@@ -182,3 +182,18 @@ figcaption small {
         height: 200px;
     }
 }
+
+.usuario-link {
+    color: var(--secondary-color);
+    font-weight: bold;
+    text-decoration: underline;
+    transition: background 0.2s, color 0.2s;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.usuario-link:hover {
+    background: var(--secondary-color);
+    color: #fff;
+    text-decoration: none;
+}

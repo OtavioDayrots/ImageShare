@@ -29,4 +29,28 @@ class UsuariosModel extends BaseModel {
                 ':img_perfil_id' => $usuario['img_perfil_id']
             ]);
     }
+
+   /**
+     * Summary of buscarPorId
+     * @return array
+     *      [ 'id', 'nome', 'email',  img_perfil_caminho' ] 
+     */
+    public function buscarPorId($id): array {
+        $query = "
+            select
+            u.*,
+            i.caminho as img_perfil_caminho
+            from usuarios u
+            left join imagens i on i.id = u.img_perfil_id
+            WHERE u.id = :id
+        ";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        return $stmt->fetch();
+    }
+
 }

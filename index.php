@@ -1,7 +1,7 @@
 <?php 
-require_once __DIR__ ."/app/model/ImagensModel.php";
+require_once __DIR__ ."/app/model/GaleriaModel.php";
 
-use App\Model\ImagensModel;
+use App\Model\GaleriaModel;
 
 ?>
 
@@ -10,33 +10,45 @@ use App\Model\ImagensModel;
 <body>
     <header>
         <nav>
-            <a href="up_usuario.php">Cadastro de Usuario</a>
-        </nav>
+            <a href="upUsuario.php">Cadastro de Usuario</a>
+        </nav> 
     </header>
     <main>
         <div class="container-upload">
             <h1>Upload de Fotos</h1>
             <form action="upload.php" method="POST" enctype="multipart/form-data">
-                <label for="foto">Foto</label>
-                <input type="file" name="foto" id="upload" accept="image/*">
+                <div>
+                    <label for="usuarioId">Usuario Id</label>
+                    <input type="text" name="usuarioId" required>
+                </div>
+                <div>
+                    <label for="foto">Foto</label>
+                    <input type="file" name="foto" id="upload" accept="image/*" required>
+                </div>
                 <button type="submit" class="btn">Enviar</button>
-            </form>
+            </form> 
         </div>
         <div class="container-fotos">
             <h1>Fotos</h1>
             <div class="fotos">
                 <?php
-                $imagensModel = new ImagensModel();
-                $fotos = $imagensModel->buscarTodas() ?? [];
+                $GaleriaModel = new GaleriaModel();
+                $fotos = $GaleriaModel->buscarTodas() ?? [];
                 foreach ($fotos as $foto) {
                     echo "
                     <figure class='foto'>
-                        <a href='{$foto['caminho']}' download>
-                            <img src='{$foto['caminho']}' class='card-foto' alt='Foto'>
+                        <a href='{$foto['imagem_caminho']}' download>
+                            <img src='{$foto['imagem_caminho']}' class='card-foto' alt='Foto'>
                         </a>
                         <figcaption>
-                            {$foto['nome_original']}<br>
-                            <small>Enviado em: {$foto['data_envio']}</small>
+                            {$foto['imagem_nome_original']}<br>
+                            <a class='usuario-link' href='usuarioGaleria.php?id={$foto['usuario_id']}'>
+                                Enviado por {$foto['usuario_nome']}<br>
+                            </a>
+                            <small>
+                                 em: {$foto['imagem_data_envio']}
+                            </small>
+
                         </figcaption>
                     </figure>
                     ";
